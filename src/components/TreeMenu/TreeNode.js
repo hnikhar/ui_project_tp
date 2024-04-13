@@ -8,6 +8,7 @@ const TreeNode = ({ label, children, onToggle, onClick, isOpen }) => {
     if (hasChildren) {
       onToggle();
     }
+    onClick();
   };
 
   return (
