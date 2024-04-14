@@ -46,21 +46,40 @@ const TreeMenu = () => {
     }));
   };
 
-  const handleNodeClick = (item) => {
-    setModalContent(item.label);
+  const handleNodeClick = (nodeLabel) => {
+    const fullItemData = findItemData(nodeLabel, initialTreeData);
+    setModalContent(nodeLabel);
     setIsModalOpen(true);
-    setSelectedItem(item);
+    setSelectedItem(fullItemData);
   };
 
-  const renderTreeNodes = (treeData) => {
-    return treeData.map((node) => (
-      // TODO: Add key to the component? 
-      <TreeNode label={node.label} isOpen={openNodes[node.label]} onToggle={() => handleToggle(node.label)} onClick={() => handleNodeClick({ label: node.label })}>
+  const findItemData = (label, nodes) => {
+    for (const node of nodes) {
+      if (node.label === label) {
+        return node;
+      }
+      if (node.children) {
+        const found = findItemData(label, node.children);
+        if (found) return found;
+      }
+    }
+    return null;
+  };
+
+  const renderTreeNodes = (nodes) => {
+    return nodes.map((node, index) => (
+      <TreeNode
+        key={node.label + index} // This key assumes labels are unique. 
+        label={node.label}
+        isOpen={openNodes[node.label]}
+        onToggle={() => handleToggle(node.label)}
+        onClick={() => handleNodeClick(node.label)}
+      >
         {node.children && renderTreeNodes(node.children)}
       </TreeNode>
     ));
   };
-
+  
   return (
     <div className="tree-menu-container">
    <div className="tree-section">

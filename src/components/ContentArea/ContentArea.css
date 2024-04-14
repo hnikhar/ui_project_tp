@@ -15,8 +15,38 @@
   }
 
   .content-area > * {
-    text-align: center; /* Center-align text for all children */
-    width: 100%; /* Set a specific width if you need to constrain the content width */
-    max-width: 600px; /* Set a max-width to prevent stretching on very wide screens */
+    text-align: center; 
+    width: 100%;
+    max-width: 600px; 
+  }
+
+  .category {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .category button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1rem;
+    background-color: #aed4fa;
+    border: none;
+    text-align: left;
+    border-radius: 8px;
+  }
+  
+  .category button:hover {
+    background-color: #81bffa;
+  }
+  
+  .category-details {
+    padding: 10px;
+    background-color: #f9fafa;
+    display: none;
+  }
+  
+  /* If the category is open, show the details */
+  .category .category-details {
+    display: block;
   }
   
