@@ -4,6 +4,7 @@ import Modal from '../Modal/Modal';
 import ContentArea from '../ContentArea/ContentArea';
 import './TreeMenu.css';
 import axios from 'axios';
+import greeting from 'greeting'
 
 const backendServerURL = "http://localhost:1234"
 
@@ -102,9 +103,10 @@ const TreeMenu = () => {
   
   return (
     <div className="tree-menu-container">
-   <div className="tree-section">
-        <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <p>{`Item clicked: ${modalContent}`}</p>
+    <div className="tree-section">
+    <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          {console.log(openNodes[modalContent])}
+          <p>{`${greeting.random()} ! You clicked: ${modalContent}`}</p>
         </Modal>
       <div className="tree-list">
           {renderTreeNodes(treeData)}
