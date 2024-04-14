@@ -2,8 +2,22 @@
 
 In the project directory, you can run:
 
-### `npm install`
+### Installation
 
-This is to install all of the dependencies and packages for this project. 
+ ```powershell
+npm install 
+```
 
-### `npm start`
+ ```powershell
+npm i --save axios
+```
+
+ ```powershell
+npm i --save greeting
+```
+
+### Run the application
+
+```powershell
+npm start
+```
