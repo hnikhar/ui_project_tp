@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TreeNode from './TreeNode';
 import Modal from '../Modal/Modal';
 import ContentArea from '../ContentArea/ContentArea';
 import './TreeMenu.css';
+import axios from 'axios';
+
+const backendServerURL = "http://localhost:1234"
 
 const initialTreeData = [
   {
@@ -38,6 +41,22 @@ const TreeMenu = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState('');
   const [selectedItem, setSelectedItem] = useState(null);
+  const [treeData, setTreeData] = useState([]);
+
+  useEffect(() => {
+    fetchTreeData();
+  }, []);
+
+  const fetchTreeData = async () => {
+    console.log('Fetching tree data from :', backendServerURL);
+    try {
+      const response = await axios.get(`${backendServerURL}/api/treeData`);
+      console.log("Data from backed: ", response)
+      setTreeData(response.data);
+    } catch (error) {
+      console.error('Error fetching tree data:', error);
+    }
+  };
 
   const handleToggle = (node) => {
     setOpenNodes((prevOpenNodes) => ({
@@ -52,6 +71,7 @@ const TreeMenu = () => {
     setIsModalOpen(true);
     setSelectedItem(fullItemData);
   };
+  
 
   const findItemData = (label, nodes) => {
     for (const node of nodes) {
@@ -87,7 +107,7 @@ const TreeMenu = () => {
         <p>{`Item clicked: ${modalContent}`}</p>
         </Modal>
       <div className="tree-list">
-          {renderTreeNodes(initialTreeData)}
+          {renderTreeNodes(treeData)}
         </div>
         </div>
       <ContentArea selectedItem={selectedItem} />
