@@ -1,16 +1,17 @@
 import React from 'react';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import TreeMenu from './components/TreeMenu/TreeMenu';
-import './App.css'; // If you have styles specific to the App component
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Dynamic Tree Menu</h1>
-      </header>
-      <main>
+      <Header />
+      <div className="main-content">
+        <h2>Dynamic Tree Menu</h2>
         <TreeMenu />
-      </main>
+      </div>
+      <Footer />
     </div>
   );
 }

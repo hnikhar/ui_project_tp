@@ -1,0 +1,24 @@
+/* src/components/Header/Header.css */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #001aff;
+    color: white;
+    padding: 1rem;
+  }
+  
+  .logo {
+    height: 50px;
+    margin-right: 1rem;
+  }
+  
+  .header h1 {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin: 0;
+  }
+  
