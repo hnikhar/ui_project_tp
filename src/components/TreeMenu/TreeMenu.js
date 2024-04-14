@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import greeting from 'greeting'
+
 import TreeNode from './TreeNode';
 import Modal from '../Modal/Modal';
 import ContentArea from '../ContentArea/ContentArea';
 import './TreeMenu.css';
-import axios from 'axios';
-import greeting from 'greeting'
+
 
 const backendServerURL = "http://localhost:1234"
 
@@ -67,7 +69,7 @@ const TreeMenu = () => {
   };
 
   const handleNodeClick = (nodeLabel) => {
-    const fullItemData = findItemData(nodeLabel, initialTreeData);
+    const fullItemData = findItemData(nodeLabel, treeData);
     setModalContent(nodeLabel);
     setIsModalOpen(true);
     setSelectedItem(fullItemData);
