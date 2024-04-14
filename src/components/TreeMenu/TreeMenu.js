@@ -4,6 +4,35 @@ import Modal from '../Modal/Modal';
 import ContentArea from '../ContentArea/ContentArea';
 import './TreeMenu.css';
 
+const initialTreeData = [
+  {
+    label: 'Root',
+    children: [
+      {
+        label: 'Parent A',
+        children: [
+          { label: 'Child A1' },
+          {
+            label: 'Child Parent A2',
+            children: [
+              { label: 'Child A21' },
+              { label: 'Child A22' }
+            ]
+          }
+        ]
+      },
+      {
+        label: 'Parent B',
+        children: [
+          { label: 'Child B1' },
+          { label: 'Child B2' },
+          { label: 'Child Parent B3' }
+        ]
+      }
+    ]
+  }
+];
+
 const TreeMenu = () => {
   const [openNodes, setOpenNodes] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,7 +49,16 @@ const TreeMenu = () => {
   const handleNodeClick = (item) => {
     setModalContent(item.label);
     setIsModalOpen(true);
-    setSelectedItem(item); 
+    setSelectedItem(item);
+  };
+
+  const renderTreeNodes = (treeData) => {
+    return treeData.map((node) => (
+      // TODO: Add key to the component? 
+      <TreeNode label={node.label} isOpen={openNodes[node.label]} onToggle={() => handleToggle(node.label)} onClick={() => handleNodeClick({ label: node.label })}>
+        {node.children && renderTreeNodes(node.children)}
+      </TreeNode>
+    ));
   };
 
   return (
@@ -29,42 +67,9 @@ const TreeMenu = () => {
         <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <p>{`Item clicked: ${modalContent}`}</p>
       </Modal>
-      <TreeNode
-          label="Root"
-          isOpen={openNodes['Root']}
-          onToggle={() => handleToggle('Root')}
-          onClick={() => handleNodeClick({ label: 'Root', details: 'Details about Root' })}
-        >
-          <TreeNode
-            label="Parent A"
-            isOpen={openNodes['ParentA']}
-            onToggle={() => handleToggle('ParentA')}
-            onClick={() => handleNodeClick({ label: 'Parent A', details: 'Details about Parent A' })}
-          >
-            <TreeNode label="Child A1" onClick={() => handleNodeClick({ label: 'Child A1', details: 'Details about Child A1' })} />
-            <TreeNode
-              label="Child Parent A2"
-              isOpen={openNodes['ChildParentA2']}
-              onToggle={() => handleToggle('ChildParentA2')}
-              onClick={() => handleNodeClick({ label: 'Child Parent A2', details: 'Details about Child Parent A2' })}
-            >
-              <TreeNode label="Child A21" onClick={() => handleNodeClick({ label: 'Child A21', details: 'Details about Child A21' })} />
-              <TreeNode label="Child A22" onClick={() => handleNodeClick({ label: 'Child A22', details: 'Details about Child A22' })} />
-            </TreeNode>
-          </TreeNode>
-          <TreeNode
-            label="Parent B"
-            isOpen={openNodes['ParentB']}
-            onToggle={() => handleToggle('ParentB')}
-            onClick={() => handleNodeClick({ label: 'Parent B', details: 'Details about Parent B' })}
-          >
-            <TreeNode label="Child B1" onClick={() => handleNodeClick({ label: 'Child B1', details: 'Details about Child B1' })} />
-            <TreeNode label="Child B2" onClick={() => handleNodeClick({ label: 'Child B2', details: 'Details about Child B2' })} />
-            <TreeNode label="Child Parent B3" onClick={() => handleNodeClick({ label: 'Child Parent B3', details: 'Details about Child Parent B3' })} />
-          </TreeNode>
-        </TreeNode>
-    </div>
-    <ContentArea selectedItem={selectedItem} />
+        {renderTreeNodes(initialTreeData)}
+      </div>
+      <ContentArea selectedItem={selectedItem} />
     </div>
   );
 };
