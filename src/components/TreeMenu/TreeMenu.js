@@ -63,12 +63,14 @@ const TreeMenu = () => {
 
   return (
     <div className="tree-menu-container">
-    <div className="tree-menu">
+   <div className="tree-section">
         <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <p>{`Item clicked: ${modalContent}`}</p>
-      </Modal>
-        {renderTreeNodes(initialTreeData)}
-      </div>
+        </Modal>
+      <div className="tree-list">
+          {renderTreeNodes(initialTreeData)}
+        </div>
+        </div>
       <ContentArea selectedItem={selectedItem} />
     </div>
   );
