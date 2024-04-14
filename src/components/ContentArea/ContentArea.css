@@ -1,6 +1,7 @@
 /* src/components/ContentArea/ContentArea.css */
 
 .content-area {
+  font-family: Palanquin, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     border-left: 1px solid #ccc;
     padding: 16px;
     margin-left: 300px; 
