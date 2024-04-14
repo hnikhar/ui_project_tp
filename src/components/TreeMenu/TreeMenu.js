@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import TreeNode from './TreeNode';
 import Modal from '../Modal/Modal';
+import ContentArea from '../ContentArea/ContentArea';
+import './TreeMenu.css';
 
 const TreeMenu = () => {
   const [openNodes, setOpenNodes] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState('');
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const handleToggle = (node) => {
     setOpenNodes((prevOpenNodes) => ({
@@ -17,10 +20,12 @@ const TreeMenu = () => {
   const handleNodeClick = (item) => {
     setModalContent(item.label);
     setIsModalOpen(true);
+    setSelectedItem(item); 
   };
 
   return (
-    <div>
+    <div className="tree-menu-container">
+    <div className="tree-menu">
         <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <p>{`Item clicked: ${modalContent}`}</p>
       </Modal>
@@ -58,6 +63,8 @@ const TreeMenu = () => {
             <TreeNode label="Child Parent B3" onClick={() => handleNodeClick({ label: 'Child Parent B3', details: 'Details about Child Parent B3' })} />
           </TreeNode>
         </TreeNode>
+    </div>
+    <ContentArea selectedItem={selectedItem} />
     </div>
   );
 };

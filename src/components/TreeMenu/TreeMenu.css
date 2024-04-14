@@ -1,0 +1,11 @@
+/* src/components/TreeMenu/TreeMenu.css */
+
+.tree-menu-container {
+    display: flex;
+  }
+  
+  .tree-menu {
+    width: 300px; 
+    overflow: auto; 
+  }
+  

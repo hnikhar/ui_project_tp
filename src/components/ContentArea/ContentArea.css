@@ -1,0 +1,8 @@
+/* src/components/ContentArea/ContentArea.css */
+
+.content-area {
+    border-left: 1px solid #ccc;
+    padding: 16px;
+    margin-left: 300px; 
+  }
+  
