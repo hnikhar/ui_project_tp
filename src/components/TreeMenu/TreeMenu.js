@@ -46,6 +46,9 @@ const TreeMenu = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [treeData, setTreeData] = useState([]);
 
+  const [parentLabel, setParentLabel] = useState('');
+  const [childLabel, setChildLabel] = useState('');
+
   useEffect(() => {
     fetchTreeData();
   }, []);
@@ -89,6 +92,60 @@ const TreeMenu = () => {
     return null;
   };
 
+  const addNode = async (parentNode, newNode) => {
+    try {
+      const response = await axios.post(`${backendServerURL}/api/addNode`, {
+        parentNode,
+        newNode
+      });
+      console.log(response);
+      if (response.data.hasOwnProperty("updatedTreeData")) {
+        setTreeData(response.data.updatedTreeData);
+      }
+    } catch (error) {
+      console.error('Error adding node:', error);
+    }
+  };
+
+  const deleteNode = async (parentNode, nodeToDeleteLabel) => {
+    try {
+      const response = await axios.delete(`${backendServerURL}/api/deleteNode`, {
+        data: { parentNode, nodeToDeleteLabel }
+      });
+      console.log(response);
+      if (response.data.hasOwnProperty("updatedTreeData")) {
+        setTreeData(response.data.updatedTreeData);
+      }
+    } catch (error) {
+      console.error('Error deleting node:', error);
+    }
+  };
+
+  const handleAddNode = async () => {
+    // Use the parentLabel and childLabel from the state
+    const parentNode = findItemData(parentLabel, treeData);
+    if (!parentNode) {
+      console.error(`Parent node '${parentLabel}' not found.`);
+      return;
+    }
+    const newNode = { label: childLabel, children: [] };
+    await addNode(parentNode, newNode);
+    setParentLabel('');
+    setChildLabel('');
+  };
+
+  const handleDeleteNode = async () => {
+    // Use the parentLabel and childLabel from the state
+    const parentNode = findItemData(parentLabel, treeData);
+    if (!parentNode) {
+      console.error(`Parent node '${parentLabel}' not found.`);
+      return;
+    }
+    await deleteNode(parentNode, childLabel);
+    setParentLabel('');
+    setChildLabel('');
+  };
+
   const renderTreeNodes = (nodes) => {
     return nodes.map((node, index) => (
       <TreeNode
@@ -112,6 +169,28 @@ const TreeMenu = () => {
         </Modal>
       <div className="tree-list">
           {renderTreeNodes(treeData)}
+          <div className="input-button-container">
+          <div className="input-container">
+          <input
+          type="text"
+          className="input-text"
+          value={parentLabel}
+          onChange={(e) => setParentLabel(e.target.value)}
+          placeholder="Parent Node Label"
+        />
+        <input
+          type="text"
+          className="input-text"
+          value={childLabel}
+          onChange={(e) => setChildLabel(e.target.value)}
+          placeholder="Child Node Label"
+        />
+        </div>
+        <div className="button-container">
+        <button className="button" onClick={handleAddNode}>Add Child</button>
+        <button className="button" onClick={handleDeleteNode}>Delete Child</button>
+        </div>
+        </div>
         </div>
         </div>
       <ContentArea selectedItem={selectedItem} />
