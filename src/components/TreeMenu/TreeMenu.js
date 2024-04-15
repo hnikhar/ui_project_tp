@@ -167,7 +167,7 @@ const TreeMenu = () => {
           {console.log(openNodes[modalContent])}
           <p>{`${greeting.random()} ! You clicked: ${modalContent}`}</p>
         </Modal>
-      <div className="tree-list">
+      <div className={`tree-list ${isModalOpen ? 'disabled' : ''}`}>
           {renderTreeNodes(treeData)}
           <div className="input-button-container">
           <div className="input-container">
