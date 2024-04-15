@@ -1,5 +1,9 @@
+'use client'
 
 import React, { useState } from 'react';
+import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
+
 import './ContentArea.css'; 
 
 const ContentArea = ({ selectedItem }) => {
@@ -21,7 +25,9 @@ const ContentArea = ({ selectedItem }) => {
         </button>
         {openCategory === child.label && (
           <div className="category-details">
-            {child.details ? <p>{child.details}</p> : <p>This is the child of {item.label}</p>}
+            {child.details ? 
+            <Typography variant="body1" gutterBottom>{child.details}</Typography> : 
+            <Typography variant="body1" gutterBottom>This is the child of {item.label}</Typography>}
           </div>
         )}
       </div>
@@ -31,7 +37,7 @@ const ContentArea = ({ selectedItem }) => {
   return (
     <div className="content-area">
       {!selectedItem ? (
-        <p>Select an item from the tree</p>
+        <Alert variant="filled" severity="info">Select an item from the tree</Alert>
       ) : (
         <>
           <h1>{selectedItem.label}</h1>

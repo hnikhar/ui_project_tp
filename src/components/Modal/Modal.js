@@ -1,4 +1,5 @@
 // src/components/Modal/Modal.js
+'use client'
 
 import React from 'react';
 import './Modal.css'; 

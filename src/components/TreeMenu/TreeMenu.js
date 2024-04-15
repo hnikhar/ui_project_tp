@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import greeting from 'greeting'
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 import TreeNode from './TreeNode';
 import Modal from '../Modal/Modal';
@@ -164,8 +167,9 @@ const TreeMenu = () => {
     <div className="tree-menu-container">
     <div className="tree-section">
     <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          {console.log(openNodes[modalContent])}
-          <p>{`${greeting.random()} ! You clicked: ${modalContent}`}</p>
+    <Typography variant="h6">
+            {`${greeting.random()}! You clicked: ${modalContent}`}
+          </Typography>
         </Modal>
       <div className={`tree-list ${isModalOpen ? 'disabled' : ''}`}>
         <div className="tree-nodes-container">
@@ -173,24 +177,40 @@ const TreeMenu = () => {
           </div>
           <div className="input-button-container">
           <div className="input-container">
-          <input
-          type="text"
-          className="input-text"
-          value={parentLabel}
-          onChange={(e) => setParentLabel(e.target.value)}
-          placeholder="Parent Node Label"
-        />
-        <input
-          type="text"
-          className="input-text"
-          value={childLabel}
-          onChange={(e) => setChildLabel(e.target.value)}
-          placeholder="Child Node Label"
-        />
+          <TextField
+    label="Parent Node Label"
+    variant="outlined"
+    value={parentLabel}
+    onChange={(e) => setParentLabel(e.target.value)}
+    size="small" // Setting the size to small
+    sx={{ mr: 1, width: 'calc(50% - 10px)' }} // Adjusting the width similar to buttons
+  />
+  <TextField
+    label="Child Node Label"
+    variant="outlined"
+    value={childLabel}
+    onChange={(e) => setChildLabel(e.target.value)}
+    size="small" // Setting the size to small
+    sx={{ ml: 1, width: 'calc(50% - 10px)' }} // Adjusting the width similar to buttons
+  />
         </div>
         <div className="button-container">
-        <button className="button" onClick={handleAddNode}>Add Child</button>
-        <button className="button" onClick={handleDeleteNode}>Delete Child</button>
+        <Button className="button"
+                variant="contained" 
+                color="primary" 
+                onClick={handleAddNode}
+                sx={{ width: 'calc(50% - 10px)', marginRight: '20px' }}
+              >
+                Add Child
+              </Button>
+              <Button className="button"
+                variant="contained" 
+                color="secondary" 
+                onClick={handleDeleteNode}
+                sx={{ width: 'calc(50% - 10px)' }}
+              >
+                Delete Child
+              </Button>
         </div>
         </div>
         </div>
