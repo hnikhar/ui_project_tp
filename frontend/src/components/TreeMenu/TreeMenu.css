@@ -13,11 +13,10 @@
 
 .tree-list {
   padding: 20px;
-  width: 180%;
 }
 
 .tree-nodes-container {
-  max-height: 320px; /* Adjust this to your preference */
+  max-height: 400px; /* Adjust this to your preference */
   overflow-y: auto; /* Enables vertical scrolling */
   margin-bottom: 20px; /* Adds some space before the inputs and buttons */
 }
@@ -87,4 +86,11 @@
 .disabled {
   pointer-events: none;
   opacity: 0.4; 
+}
+
+.modal-open {
+  overflow-y: hidden; /* Hide scrollbar when modal is open */
+}
+.modal {
+  z-index: 1050; 
 }
