@@ -6,7 +6,7 @@ import './Footer.css';
 const Footer = () => {
   return (
     <footer className="footer">
-      <p>© 2024 Harsha Nikhar UI Project.</p>
+      <p>Copyright © {new Date().getFullYear()}. Harsha Nikhar. All Rights Reserved.</p>
     </footer>
   );
 };
