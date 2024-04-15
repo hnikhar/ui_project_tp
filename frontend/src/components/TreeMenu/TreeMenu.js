@@ -103,7 +103,11 @@ const TreeMenu = () => {
       });
       console.log(response);
       if (response.data.hasOwnProperty("updatedTreeData")) {
+        const updatedTree = response.data.updatedTreeData;
         setTreeData(response.data.updatedTreeData);
+        if (selectedItem && selectedItem.label === parentNode.label) {
+          setSelectedItem(findItemData(parentNode.label, updatedTree));
+        }
       }
     } catch (error) {
       console.error('Error adding node:', error);
@@ -117,7 +121,12 @@ const TreeMenu = () => {
       });
       console.log(response);
       if (response.data.hasOwnProperty("updatedTreeData")) {
+        const updatedTree = response.data.updatedTreeData;
         setTreeData(response.data.updatedTreeData);
+        if (selectedItem && (selectedItem.label === nodeToDeleteLabel || 
+          (selectedItem.label === parentNode.label))) {
+        setSelectedItem(findItemData(parentNode.label, updatedTree));
+        }
       }
     } catch (error) {
       console.error('Error deleting node:', error);
@@ -165,7 +174,7 @@ const TreeMenu = () => {
   
   return (
     <div className="tree-menu-container">
-    <div className="tree-section">
+    <div className={`tree-section ${isModalOpen ? 'modal-open' : ''}`}>
     <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
     <Typography variant="h6">
             {`${greeting.random()}! You clicked: ${modalContent}`}
@@ -178,43 +187,43 @@ const TreeMenu = () => {
           <div className="input-button-container">
           <div className="input-container">
           <TextField
-    label="Parent Node Label"
-    variant="outlined"
-    value={parentLabel}
-    onChange={(e) => setParentLabel(e.target.value)}
-    size="small" // Setting the size to small
-    sx={{ mr: 1, width: 'calc(50% - 10px)' }} // Adjusting the width similar to buttons
-  />
-  <TextField
-    label="Child Node Label"
-    variant="outlined"
-    value={childLabel}
-    onChange={(e) => setChildLabel(e.target.value)}
-    size="small" // Setting the size to small
-    sx={{ ml: 1, width: 'calc(50% - 10px)' }} // Adjusting the width similar to buttons
-  />
+            label="Parent Node Label"
+            variant="outlined"
+            value={parentLabel}
+            onChange={(e) => setParentLabel(e.target.value)}
+            size="small" // Setting the size to small
+            sx={{ mr: 1, width: 'calc(50% - 10px)' }} // Adjusting the width similar to buttons
+          />
+          <TextField
+            label="Child Node Label"
+            variant="outlined"
+            value={childLabel}
+            onChange={(e) => setChildLabel(e.target.value)}
+            size="small" // Setting the size to small
+            sx={{ ml: 1, width: 'calc(50% - 10px)' }} // Adjusting the width similar to buttons
+          />
+          </div>
+          <div className="button-container">
+          <Button className="button"
+            variant="contained" 
+            color="primary" 
+            onClick={handleAddNode}
+            sx={{ width: 'calc(50% - 10px)', marginRight: '20px' }}
+          >
+            Add Child
+          </Button>
+          <Button className="button"
+            variant="contained" 
+            color="secondary" 
+            onClick={handleDeleteNode}
+            sx={{ width: 'calc(50% - 10px)' }}
+            >
+            Delete Child
+          </Button>
         </div>
-        <div className="button-container">
-        <Button className="button"
-                variant="contained" 
-                color="primary" 
-                onClick={handleAddNode}
-                sx={{ width: 'calc(50% - 10px)', marginRight: '20px' }}
-              >
-                Add Child
-              </Button>
-              <Button className="button"
-                variant="contained" 
-                color="secondary" 
-                onClick={handleDeleteNode}
-                sx={{ width: 'calc(50% - 10px)' }}
-              >
-                Delete Child
-              </Button>
-        </div>
-        </div>
-        </div>
-        </div>
+      </div>
+      </div>
+      </div>
       <ContentArea selectedItem={selectedItem} />
     </div>
   );
