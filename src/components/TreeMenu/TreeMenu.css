@@ -15,6 +15,21 @@
   padding: 20px;
 }
 
+.tree-nodes-container {
+  max-height: 320px; /* Adjust this to your preference */
+  overflow-y: auto; /* Enables vertical scrolling */
+  margin-bottom: 20px; /* Adds some space before the inputs and buttons */
+}
+.tree-nodes-container::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 8px; /* width of the entire scrollbar */
+}
+
+.tree-nodes-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5); /* color of the scroll thumb */
+  border-radius: 4px; /* roundness of the scroll thumb */
+  border: 2px solid #ffffff; /* creates padding around scroll thumb */
+}
 .input-text {
   padding: 10px;
   margin: 5px 5px 0;

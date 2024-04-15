@@ -168,7 +168,9 @@ const TreeMenu = () => {
           <p>{`${greeting.random()} ! You clicked: ${modalContent}`}</p>
         </Modal>
       <div className={`tree-list ${isModalOpen ? 'disabled' : ''}`}>
+        <div className="tree-nodes-container">
           {renderTreeNodes(treeData)}
+          </div>
           <div className="input-button-container">
           <div className="input-container">
           <input
